@@ -48,3 +48,6 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## References
+- https://medium.com/free-code-camp/how-to-build-a-nested-drawer-menu-with-react-native-a1c2fdcab6c9
