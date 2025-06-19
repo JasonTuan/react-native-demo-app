@@ -9,7 +9,7 @@ export default function AboutUs() {
                 alignItems: "center",
             }}
         >
-            <Text>About Us page.</Text>
+            <Text>About Us page ABC.</Text>
         </View>
     );
 }

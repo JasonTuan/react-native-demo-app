@@ -49,5 +49,14 @@ Join our community of developers creating universal apps.
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
+## Common cli
+```shell
+npx expo-router-sitemap
+```
+
 ## References
+- https://dev.to/merlier/nested-drawer-menu-in-react-native-44k8
+- https://github.com/awesome-reactivesearch/native-kitchensink
 - https://medium.com/free-code-camp/how-to-build-a-nested-drawer-menu-with-react-native-a1c2fdcab6c9
+- https://medium.com/@huzaifaqureshi037/how-to-create-sidebar-menu-drawer-in-mobile-app-expo-react-native-c6fb4f6b8144
+- https://reactnavigation.org/docs/drawer-navigator/
