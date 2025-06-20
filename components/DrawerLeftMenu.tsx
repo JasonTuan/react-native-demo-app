@@ -1,46 +1,72 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList,} from '@react-navigation/drawer';
+import {Text, View, StyleSheet} from 'react-native';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItem,} from '@react-navigation/drawer';
 import {Ionicons} from "@expo/vector-icons";
-import AboutUs from "@/app/about-us";
 import Home from "@/app/index";
+import mockMenuData from '../mock/menu.json';
+import {useEffect, useState} from "react";
 
-function Feed() {
-    return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Feed Screen</Text>
-        </View>
-    );
-}
-
-function Article() {
-    return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Article Screen</Text>
-        </View>
-    );
+interface MenuItem {
+    id: number;
+    name: string;
+    path: string;
+    icon?: string;
+    children?: MenuItem[];
 }
 
 function CustomDrawerContent(props: any) {
+    const [parentMenu, setParentMenu] = useState<MenuItem|null>(null);
+    const [menuItems, setMenuItems] = useState<MenuItem[]>(mockMenuData);
+
+    useEffect(() => {
+        if (parentMenu !== null) {
+            const items = menuItems
+                .find(item => item.id === parentMenu.id)
+                ?.children || [];
+            setMenuItems(items);
+        } else {
+            setMenuItems(mockMenuData);
+        }
+    }, [parentMenu]);
+
     return (
         <DrawerContentScrollView {...props}>
-            {/*<DrawerItem*/}
-            {/*    icon={_ => <Ionicons name="home" size={24} color={props.color}/>}*/}
-            {/*    label="Home"*/}
-            {/*    onPress={() => props.navigation.push({*/}
-            {/*        name: 'Home',*/}
-            {/*    })}/>*/}
-            <DrawerItemList {...props} />
+            {
+                parentMenu !== null && (
+                    <View style={styles.drawerSubTitleRow}>
+                        <Ionicons
+                            name="chevron-back"
+                            size={24}
+                            onPress={() => setParentMenu(null)}/>
+                        <Text
+                            style={styles.drawerSubTitleRowTitle}
+                            onPress={() => setParentMenu(null)}
+                        >
+                            {parentMenu.name}
+                        </Text>
+                    </View>
+                )
+            }
+            {
+                menuItems.map((item: MenuItem) => (
+                    <DrawerItem
+                        key={item.id}
+                        icon={_ => item.icon ? <Ionicons name={item.icon} size={24}/> : null}
+                        label={item.name}
+                        onPress={() => {
+                            if (item.children && item.children.length > 0) {
+                                setParentMenu(item);
+                            } else {
+                                props.navigation.push(item.path);
+                            }
+                        }}
+                    />
+                ))
+            }
             <DrawerItem
-                icon={_ => <Ionicons name="accessibility-outline" size={24}/>}
+                icon={_ => <Ionicons name="help-buoy-outline" size={24}/>}
                 label="Help"
                 onPress={() => alert('Link to help')}/>
-            {/*<DrawerItem*/}
-            {/*    icon={_ => <Ionicons name="telescope" size={24} color="red"/>}*/}
-            {/*    label="About Us"*/}
-            {/*    onPress={() => props.navigation.push({*/}
-            {/*        name: 'About Us',*/}
-            {/*    })}/>*/}
         </DrawerContentScrollView>
     );
 }
@@ -58,9 +84,19 @@ export default function DrawerLeftMenu() {
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
             <Drawer.Screen name="Home" component={Home}/>
-            <Drawer.Screen name="About Us" component={AboutUs}/>
-            <Drawer.Screen name="Feed" component={Feed}/>
-            <Drawer.Screen name="Article" component={Article}/>
         </Drawer.Navigator>
     );
 }
+
+const styles = StyleSheet.create({
+    drawerSubTitleRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 10,
+    },
+    drawerSubTitleRowTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});

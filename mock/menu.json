@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "name": "Home",
+    "icon": "home-outline",
+    "path": "/",
+    "children": []
+  },
+  {
+    "id": 2,
+    "name": "About",
+    "icon": "information-circle-outline",
+    "path": "/about-us",
+    "children": []
+  },
+  {
+    "id": 3,
+    "name": "Services",
+    "icon": "cart-outline",
+    "path": "/services",
+    "children": [
+      {
+        "id": 4,
+        "name": "Web Development",
+        "icon": "chevron-forward",
+        "path": "/services/web-development"
+      },
+      {
+        "id": 5,
+        "name": "SEO Optimization",
+        "icon": "chevron-forward",
+        "path": "/services/seo-optimization"
+      },
+      {
+        "id": 6,
+        "name": "Outsourcing",
+        "icon": "chevron-forward",
+        "path": "/services/outsourcing"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Contact",
+    "icon": "book-outline",
+    "path": "/contact",
+    "children": []
+  }
+]
